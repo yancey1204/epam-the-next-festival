@@ -42,6 +42,7 @@ app.get('/register', function(req, res) {
 // handle the posted registration data
 app.post('/register', function(req, res) {
 
+  // get the data out of the request (req) object 
   // store the user in memory here
 
   res.redirect('/dashboard');
