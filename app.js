@@ -5,11 +5,13 @@ var bodyParser = require('body-parser');
 // include express handlebars (templating engine)
 var exphbs  = require('express-handlebars');
 
-// specify the layour for our handlebars template
+// specify the layout for our handlebars template
 var hbs = exphbs.create({defaultLayout: 'main'});
 
 // crethe the express app
 var app = express();
+
+var api = require('./routes/api');
 
 // setup handlebars
 app.engine('handlebars', hbs.engine);
@@ -39,26 +41,29 @@ app.get('/register', function(req, res) {
 
 // handle the posted registration data
 app.post('/register', function(req, res) {
-  res.redirect('/quiz');
+
+  // store the user in memory here
+
+  res.redirect('/dashboard');
 });
 
-// respond to the get request with quiz page (and pass in some data into the template)
-app.get('/quiz', function (req, res) {
-    res.render('quiz', {
-    	questions: [{
-		    title: "Hello",
-		    answer: "World!"
-		},{
-		    title: "Greetings",
-		    answer: "Universe!"
+// respond to the get request with dashboard page (and pass in some data into the template / note this will be rendered server-side)
+app.get('/dashboard', function (req, res) {
+    res.render('dashboard', {
+    	stuff: [{
+		    greeting: "Hello",
+		    subject: "World!"
 		}]
     });
 });
+
+// the api (note that typically you would likely organize things a little differently to this)
+app.use('/api', api);
 
 // create the server based on express
 var server = require('http').createServer(app);
 
 // start the server
 server.listen(1337, '127.0.0.1', function () {
-  console.log('Node.js + Express are looking good! Open http://localhost:%d to begin.', 1337);
+  console.log('The Next XYZ is looking good! Open http://localhost:%d to begin.', 1337);
 });
