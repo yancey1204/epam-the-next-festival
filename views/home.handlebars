@@ -1,35 +1,37 @@
 <div class="jumbotron">
-  <h1>The Next XYZ</h1>
-  <p><strong>Welcome to The Next XYZ</strong>. Your first task is to decide on a theme (e.g. The Next Kitten, The Next SmartPhone, The Next Cool Thing) and begin adapting the name and content accordingly. Feel free to change the header color and icons too.</p>
-  <p><a class="btn btn-primary btn-lg" href="/about" role="button">Learn more</a></p>
+	<h1>The Next Festivals</h1>
+	<p><strong>Welcome to The Next Festivals</strong>. Here you can find the photos and the origin of the coming festivals in the world.</p>
+	<p><a class="btn btn-primary btn-lg" href="/about" role="button">Learn more</a></p>
 </div>
-<div class="row">
-	<div class="col-md-4">
-		<p class="text-center img">
-			Insert Article + Responsive Image Here
-		</p>
-	</div>
-	<div class="col-md-4">
-		<p class="text-center img">
-			Insert Article + Responsive Image Here
-		</p>
-	</div>
-	<div class="col-md-4">
-		<p class="text-center img">
-			Insert Article + Responsive Image Here
-		</p>
-	</div>
+<div class="row" id="articles">
+
 </div>
+
+
 <div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">TODO</h3>
-  </div>
-  <div class="panel-body">
-    <ul>
-    	<li>Pull in the above three news articles off of the appropriate API endpoint (http://localhost:1337/api/articles)</li>
-    	<li>Include a background image with text on top (and maybe even a nice hover state</li>
-    	<li>Have each one link to it's own page (e.g. http://localhost:1337/api/articles/1)</li>
-    	<li>You'll then need to build the above page</li>
-    </ul>
-  </div>
+	<div class="panel-heading">
+		<h3 class="panel-title">TODO</h3>
+	</div>
+	<div class="panel-body">
+		<ul>
+			<li>Pull in the above three news articles off of the appropriate API endpoint (http://localhost:1337/api/articles)</li>
+			<li>Include a background image with text on top (and maybe even a nice hover state</li>
+			<li>Have each one link to it's own page (e.g. http://localhost:1337/api/articles/1)</li>
+			<li>You'll then need to build the above page</li>
+		</ul>
+	</div>
 </div>
+
+
+<script id="homeTemplate" type="text/x-handlebars-template">
+	<div class="col-md-4">
+		<p class="text-center">
+			<div class="img">
+				<img src="\{{image}}" class="img-responsive" />
+				<a href="http://localhost:1337/article/\{{_id}}">
+					<p>\{{title}}</p>
+				</a>
+			</div>
+		</p>
+	</div>
+</script>
