@@ -1,6 +1,12 @@
-
+<div class="article-detail">
+  <h2>{{article.title}}</h2>
   <img src="{{article.image}}" class="img-responsive" />
-    <h2>{{article.title}}</h2>
-    <h3>{{article.author}}</h3>
-    <p>{{article.date}}</p>
-    <p>{{article.summary}}</p>
+  <div class="article-text">
+    <br>
+    <p><strong>Dates: </strong>{{article.date}}</p>
+    <br>
+    <p><strong>Location: </strong>{{article.location}}</p>
+    <br>
+    <p>{{article.content}}</p>
+  </div>
+</div>

@@ -1,6 +1,5 @@
 body {
   padding-top: 70px;
-  padding-bottom: 30px;
 }
 
 .theme-dropdown .dropdown-menu {
@@ -20,16 +19,15 @@ body {
 /* Navigation style */
 
 .navbar-inverse {
-	background-image: linear-gradient(to bottom, #D9260F 0, #B81208 100%);
+  background-image: linear-gradient(to bottom, #3498db 0, #2980b9 100%);
+	/*background-image: linear-gradient(to bottom, #D9260F 0, #B81208 100%);*/
 	border-color: #666666;
+  transition: background-color 0.3s linear;
 }
 
-.navbar-inverse .navbar-brand {
-	color: yellow !important;
-}
 
 .navbar-inverse .navbar-brand:hover {
-	color: orange;
+	background-color: #2980b9;
 }
 
 .navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav>li>a {
@@ -54,4 +52,90 @@ a{
 
 #newArticle{
   display: none;
+}
+
+/*articles*/
+#articles .thumbnail-container{
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+}
+#articles .caption {
+    height: 150px;
+}
+
+#articles a:hover{
+  text-decoration: none;
+}
+
+/*button layout*/
+.btn-primary{
+  background-color: #9b59b6;
+  border:none;
+  transition: all 0.3s linear;
+}
+.btn-primary:hover{
+  background-color: #8e44ad;
+}
+
+/*footer style*/
+@media (min-width: 768px){
+  .bs-docs-footer {
+    text-align: left;
+  }
+  .bs-docs-footer p {
+    margin-bottom: 0;
+  }
+}
+.bs-docs-footer {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin-top: 100px;
+    color: #99979c;
+    text-align: center;
+    background-color: #2a2730;
+}
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: left;
+}
+.bs-docs-footer-links {
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+.bs-docs-footer-links li {
+    display: inline-block;
+    margin: 0 10px;
+}
+.bs-docs-footer a {
+    color: #fff;
+}
+
+p {
+    margin: 0 0 10px;
+}
+
+/*article detail style */
+.article-detail h2{
+      color: #2c3643;
+      font-size: 6em;
+      margin: 100px 0;
+      text-align: center;
+}
+.article-detail img{
+  margin: 0 auto
+}
+.article-detail p{
+    font-family: Miller Daily,Georgia,Times,Times New Roman,serif;
+    line-height: 1.8;
+    font-size: 2rem;
+    color: #2c3643;
+}
+.article-detail .article-text{
+    width: 70%;
+    margin: 100px auto 0 auto;
 }

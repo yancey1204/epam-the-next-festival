@@ -1,26 +1,25 @@
 <div class="jumbotron">
 	<h1>The Next Festivals</h1>
-	<p><strong>Welcome to The Next Festivals</strong>. Here you can find the photos and the origin of the coming festivals in the world.</p>
+	<p><strong>Welcome to The Next Festivals</strong>. Here you can view festivals coming up in the world. Find basic info on festivals, plan the perfect holiday citytrip and share the experience with same minded people worldwide.</p>
 	<p><a class="btn btn-primary btn-lg" href="/about" role="button">Learn more</a></p>
 </div>
 <div class="row" id="articles">
 	{{#each articles}}
-	<div class="col-md-4">
-		<p class="text-center">
-			<div class="img">
-				<img src="{{image}}" class="img-responsive" />
+	<div class="col-sm-6 col-md-4">
+		<div class="thumbnail">
+			<div class="thumbnail-container" style="background-image: url({{image}})"></div>
+			<div class="caption">
 				<a href="http://localhost:1337/article/{{_id}}">
-					<p>{{title}}</p>
+					<h3>{{title}}</h3>
 				</a>
 			</div>
-		</p>
+		</div>
 	</div>
 	{{/each}}
 
 </div>
 
-
-<div class="panel panel-default">
+{{!-- <div class="panel panel-default">
 	<div class="panel-heading">
 		<h3 class="panel-title">TODO</h3>
 	</div>
@@ -33,17 +32,4 @@
 		</ul>
 	</div>
 </div>
-
-
-<script id="homeTemplate" type="text/x-handlebars-template">
-	<div class="col-md-4">
-		<p class="text-center">
-			<div class="img">
-				<img src="\{{image}}" class="img-responsive" />
-				<a href="http://localhost:1337/article/\{{_id}}">
-					<p>\{{title}}</p>
-				</a>
-			</div>
-		</p>
-	</div>
-</script>
+ --}}

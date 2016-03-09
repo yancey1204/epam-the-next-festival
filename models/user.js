@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-
 // connect to database
 var Schema = mongoose.Schema;
 
@@ -20,14 +19,25 @@ var UserSchema = new Schema({
   password: {
     type: String,
     required: true,
-    validate: {
-      validator: (pass) => {
-          var regx = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
-          return regx.test(pass);
-        },
-      message: '{VALUE}Contain at least 8 characters, 1 number,1 lowercase,1 uppercase)'
-    }
+    // validate: {
+    //   validator: (pass) => {
+    //       var regx = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+    //       return regx.test(pass);
+    //     },
+    //   message: '{VALUE}Contain at least 8 characters, 1 number,1 lowercase,1 uppercase)'
+    // }
   }
 });
+
+UserSchema.method('validPassword', function(password, callback) {
+
+    if (password == this.password) {
+      return true;
+    } else {
+      return false;
+    }
+});
+
+
 
 module.exports = mongoose.model('User',UserSchema);

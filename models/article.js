@@ -7,9 +7,9 @@ var Schema = mongoose.Schema;
 var ArticleSchema = new Schema({
   title: String,
   image: String,
-  author: String,
+  location: String,
   date: String,
-  summary: String
+  content: String
 });
  mongoose.model('Article',ArticleSchema);
 module.exports = mongoose.model('Article');

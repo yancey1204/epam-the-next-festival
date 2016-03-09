@@ -4,6 +4,13 @@ var bodyParser = require('body-parser');
 var _ = require('underscore');
 var mongoose = require('mongoose');
 
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+// var cookieParser = require('cookie-parser');
+var session = require('express-session');
+// var flash = require('express-flash');
+
+
 // connect to database
 mongoose.connect('mongodb://localhost/epam');
 
@@ -17,10 +24,6 @@ var hbs = exphbs.create({defaultLayout: 'main'});
 // crethe the express app
 var app = express();
 
-// var api = require('./routes/api');
-var articleController = require('./routes/articleController');
-var userController = require('./routes/userController');
-
 // setup handlebars
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
@@ -32,10 +35,29 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // setup our public directory (which will serve any file stored in the 'public' directory)
 app.use(express.static('public'));
 
+// var api = require('./routes/api');
+var articleController = require('./routes/articleController');
+var userController = require('./routes/userController');
+
+// app.use(cookieParser());
+// app.use(session({ secret: 'keyboard cat' , resave: false, saveUninitialized: false}));
+// app.use(flash());
+
+app.use(session({ secret: 'anything' }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 app.use((req, res, next) => {
 	res.locals.scripts = [];
+
+	if (req.user) {
+		res.locals.user = req.user;
+	}
+
 	next();
 });
+
 
 // respond to the get request with the home page
 app.get('/', (req, res) => {
@@ -56,28 +78,27 @@ app.get('/about', (req, res) => {
 	res.render('about');
 });
 
-// respond to the get request with the register page
 app.get('/register', (req, res) => {
 	res.render('register');
 });
 
-// handle the posted registration data
 app.post('/register', (req, res) => {
-  // get the data out of the request (req) object
 	userController.register(req.body,(user) => {
 		res.render('dashboard', {user:user});
 	})
-
 });
 
-// respond to the get request with dashboard page (and pass in some data into the template / note this will be rendered server-side)
+app.get('/login', (req, res) => {
+	res.render('login');
+});
+
+app.post('/login', passport.authenticate('local', {
+	    successRedirect: '/dashboard',
+	    failureRedirect: '/login'
+	  }));
+
 app.get('/dashboard',  (req, res) => {
-	res.render('dashboard', {
-		stuff: [{
-			greeting: "Hello",
-			subject: "World!"
-		}]
-	});
+	res.render('dashboard');
 });
 
 app.post('/dashboard',  (req, res) => {
