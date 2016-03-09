@@ -4,7 +4,7 @@ var _ = require('underscore');
 var mongoose = require('mongoose');
 
 // connect to database
-mongoose.connect('mongodb://localhost/epam');
+// mongoose.connect('mongodb://localhost/epam');
 var Schema = mongoose.Schema;
 
 // create a Schema for Articles

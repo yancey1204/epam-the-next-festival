@@ -1,6 +1,12 @@
 <h2>Dashboard</h2>
 <div id="stuff">
-	<h4>Welcome <em>ADD NAME HERE</em></h4>
+	<h4>Welcome
+    {{#if user.name}}
+    <em>{{user.name}}</em>
+    {{else}}
+    <h1>Unknown Author</h1>
+    {{/if}}
+  </h4>
 
 	{{#each stuff}}
 	<p>{{ greeting }} {{ subject }}</p>
@@ -8,8 +14,35 @@
 
 	<hr>
 
-	<button class="btn btn-inverse btn-lg">Add New Article</button>
+	<button class="btn btn-inverse btn-lg" id="newArticleBtn">Add New Article</button>
 </div>
+
+<br>
+
+<form id="newArticle" action="/dashboard" method="POST">
+  <div class="form-group">
+    <label for="articleTitle">Title</label>
+    <input name="title" type="text" class="form-control" id="articleTitle">
+  </div>
+  <div class="form-group">
+    <label for="articleImage">Image Url</label>
+    <input name="image" type="text" class="form-control" id="articleImage" >
+  </div>
+  <div class="form-group">
+    <label for="articleAuthor">author</label>
+    <input name="author" type="text" class="form-control" id="articleAuthor">
+  </div>
+  <div class="form-group">
+    <label for="articleDate">date</label>
+    <input name="date" type="text" class="form-control" id="articleDate">
+  </div>
+  <div class="form-group">
+    <label for="articleSummary">Summary</label>
+    <textarea name="summary" class="form-control" id="articleSummary"></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-inverse btn-lg">Add new Article</button>
+</form>
 
 <br>
 <div class="panel panel-default">

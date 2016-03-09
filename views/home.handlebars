@@ -4,6 +4,18 @@
 	<p><a class="btn btn-primary btn-lg" href="/about" role="button">Learn more</a></p>
 </div>
 <div class="row" id="articles">
+	{{#each articles}}
+	<div class="col-md-4">
+		<p class="text-center">
+			<div class="img">
+				<img src="{{image}}" class="img-responsive" />
+				<a href="http://localhost:1337/article/{{_id}}">
+					<p>{{title}}</p>
+				</a>
+			</div>
+		</p>
+	</div>
+	{{/each}}
 
 </div>
 

@@ -51,3 +51,7 @@ body {
 a{
   cursor: pointer;
 }
+
+#newArticle{
+  display: none;
+}

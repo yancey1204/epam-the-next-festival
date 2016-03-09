@@ -2,6 +2,11 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var _ = require('underscore');
+var mongoose = require('mongoose');
+
+// connect to database
+mongoose.connect('mongodb://localhost/epam');
+
 
 // include express handlebars (templating engine)
 var exphbs  = require('express-handlebars');
@@ -12,7 +17,9 @@ var hbs = exphbs.create({defaultLayout: 'main'});
 // crethe the express app
 var app = express();
 
-var api = require('./routes/api');
+// var api = require('./routes/api');
+var articleController = require('./routes/articleController');
+var userController = require('./routes/userController');
 
 // setup handlebars
 app.engine('handlebars', hbs.engine);
@@ -25,58 +32,46 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // setup our public directory (which will serve any file stored in the 'public' directory)
 app.use(express.static('public'));
 
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
 	res.locals.scripts = [];
 	next();
 });
 
 // respond to the get request with the home page
-app.get('/', function (req, res) {
-	res.locals.scripts.push('/js/main.js');
-	res.render('home');
+app.get('/', (req, res) => {
+	articleController.getAllArticles((data) => {
+		res.render('home',{articles: data});
+	});
 });
-
 
 // respond to the get specific article by id
-app.get('/article/:id', function (req, res) {
-
-	var fs = require('fs');
-	fs.readFile('./data/articles.json', 'utf8', function (err, data) {
-		if (err) throw err;
-
-		data = _.filter(JSON.parse(data), function(item) {
-			return item.id == req.params.id;
-		});
-
-		// res.json(data);
-		res.render('article',{article:data[0]});
+app.get('/article/:id', (req, res) => {
+	articleController.getArticleById(req.params.id, (data) => {
+		res.render('article',{article: data[0]});
 	});
-
 });
 
-
-
 // respond to the get request with the about page
-app.get('/about', function(req, res) {
+app.get('/about', (req, res) => {
 	res.render('about');
 });
 
 // respond to the get request with the register page
-app.get('/register', function(req, res) {
+app.get('/register', (req, res) => {
 	res.render('register');
 });
 
 // handle the posted registration data
-app.post('/register', function(req, res) {
-
+app.post('/register', (req, res) => {
   // get the data out of the request (req) object
-  // store the user in memory here
+	userController.register(req.body,(user) => {
+		res.render('dashboard', {user:user});
+	})
 
-  res.redirect('/dashboard');
 });
 
 // respond to the get request with dashboard page (and pass in some data into the template / note this will be rendered server-side)
-app.get('/dashboard', function (req, res) {
+app.get('/dashboard',  (req, res) => {
 	res.render('dashboard', {
 		stuff: [{
 			greeting: "Hello",
@@ -85,13 +80,17 @@ app.get('/dashboard', function (req, res) {
 	});
 });
 
-// the api (note that typically you would likely organize things a little differently to this)
-app.use('/api', api);
+app.post('/dashboard',  (req, res) => {
+	articleController.createNewArticle(req.body,() => {
+		res.redirect('/');
+	});
+});
+
 
 // create the server based on express
 var server = require('http').createServer(app);
 
 // start the server
-server.listen(1337, '127.0.0.1', function () {
+server.listen(1337, '127.0.0.1',  () => {
 	console.log('The Next XYZ is looking good! Open http://localhost:%d to begin.', 1337);
 });
