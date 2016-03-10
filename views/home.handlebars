@@ -7,7 +7,9 @@
 	{{#each articles}}
 	<div class="col-sm-6 col-md-4">
 		<div class="thumbnail">
-			<div class="thumbnail-container" style="background-image: url({{image}})"></div>
+			<div class="thumbnail-wrapper">
+				<div class="thumbnail-container" style="background-image: url({{image}})"></div>
+			</div>
 			<div class="caption">
 				<a href="http://localhost:1337/article/{{_id}}">
 					<h3>{{title}}</h3>

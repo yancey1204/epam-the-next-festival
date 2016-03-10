@@ -6,9 +6,7 @@ var mongoose = require('mongoose');
 
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-// var cookieParser = require('cookie-parser');
 var session = require('express-session');
-// var flash = require('express-flash');
 
 
 // connect to database
@@ -35,13 +33,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // setup our public directory (which will serve any file stored in the 'public' directory)
 app.use(express.static('public'));
 
-// var api = require('./routes/api');
 var articleController = require('./routes/articleController');
 var userController = require('./routes/userController');
-
-// app.use(cookieParser());
-// app.use(session({ secret: 'keyboard cat' , resave: false, saveUninitialized: false}));
-// app.use(flash());
 
 app.use(session({ secret: 'anything' }));
 app.use(passport.initialize());
@@ -52,6 +45,8 @@ app.use((req, res, next) => {
 	res.locals.scripts = [];
 
 	if (req.user) {
+		req.session.user = req.user;
+		console.log("session: ", req.session, "\nreq.user: ",req.user, "\nreq: ",req);
 		res.locals.user = req.user;
 	}
 
@@ -94,10 +89,15 @@ app.get('/login', (req, res) => {
 
 app.post('/login', passport.authenticate('local', {
 	    successRedirect: '/dashboard',
-	    failureRedirect: '/login'
-	  }));
+	    failureRedirect: '/login'})
+);
 
-app.get('/dashboard',  (req, res) => {
+var isAuthenticated = function (req,res,next) {
+    if (req.isAuthenticated()) return next();
+    res.redirect('/login');
+}
+
+app.get('/dashboard', isAuthenticated,(req, res) => {
 	res.render('dashboard');
 });
 

@@ -17,7 +17,6 @@ passport.deserializeUser(function(user, done) {
 
 passport.use(new LocalStrategy(
   (username, password, done) => {
-
     user.findOne({ email: username }, (err, user) => {
       console.log("validation");
       if (err) { return done(err); }
