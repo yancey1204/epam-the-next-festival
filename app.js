@@ -97,7 +97,7 @@ var isAuthenticated = function (req,res,next) {
     res.redirect('/login');
 }
 
-app.get('/dashboard', isAuthenticated,(req, res) => {
+app.get('/dashboard',isAuthenticated,(req, res) => {
 	res.render('dashboard');
 });
 
